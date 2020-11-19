@@ -43,5 +43,4 @@ opts = setvaropts(opts, "nuestraAfliccion", "EmptyFieldRule", "auto");
 
 % Import the data
 Libro1 = readmatrix(filename, opts);
-
 end

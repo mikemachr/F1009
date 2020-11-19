@@ -16,4 +16,3 @@ locs = samp*(0:(Le/2))/Le;%Convertir el eje x a frecuencia
 pks=Fou(1:Le/2+1);%Amplitud de la mitad de los valores en Fou    
  
 
-

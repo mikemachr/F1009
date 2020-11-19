@@ -27,7 +27,6 @@ disp('-------------------------------------------------------------------')
 
 
 
-
 function[t,migrab,rec]=grabar()
     samp=8000;
     rec = audiorecorder(samp,24,1);
