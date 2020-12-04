@@ -4,50 +4,40 @@ diccionario=importfile('files.csv');
 nombres=importfile('names.csv');
 
 resultados=[];
-[t,migrab,rec]=grabar();
-[picosSample,frecuenciasSample,anchosSample,...
-    prominenciasSample]=plotter(migrab);
+[migrab,rec]=grabar();
+[picosSample,frecuenciasSample,anchosSample]=scanner(migrab);
 sampleAudio=migrab;
 
 for i=1:size(diccionario)
    load(diccionario(i))
-   [picosPlantilla,frecuenciasPlantilla,anchosPlantilla,...
-       prominenciasPlantilla]=plotter(migrab);
-    [frecsCompartidas,donde]=comparador(frecuenciasSample,...
+   [frecsCompartidas,donde]=comparador(frecuenciasSample,...
         frecuenciasPlantilla);
     resultados(i)=grader(frecsCompartidas,donde,anchosSample,anchosPlantilla,...
     picosSample,picosPlantilla);
 end
 [score, indice]=max(resultados);
-load(diccionario(indice))
-%play(rec)
-disp('Debe ser: '+string(nombres(indice)))
+disp('La canción analizada debe ser: '+string(nombres(indice)))
 disp('-------------------------------------------------------------------')
 
 
-
-
-function[t,migrab,rec]=grabar()
-    samp=8000;
+function[migrab,rec]=grabar()
+    samp=2*4000;
     rec = audiorecorder(samp,24,1);
     disp('Comienzo de sampling')
     recordblocking(rec, 15);
     disp('Fin de sampling')
     migrab= getaudiodata(rec);
     migrab=migrab./size(migrab);
-    tiempo=1/samp;
-    Le=length(migrab);
-    t=(0:Le-1)*tiempo;
 end
 
-function[pks,locs,w,p]=plotter(migrab)
+function[pks,locs,w]=scanner(migrab)
     samp=2*4000; 
     Le=length(migrab);
     F=fft(migrab); 
     Fou=abs(F); 
     frecuencias = samp*(0:(Le/2))/Le;
     amplitudes=Fou(1:Le/2+1);
-     [pks,locs,w,p]=findpeaks(amplitudes,frecuencias,'minPeakHeight',...
+     [pks,locs,w]=findpeaks(amplitudes,frecuencias,'minPeakHeight',...
         2*std(amplitudes)+mean(amplitudes));
     locs=round(locs,1);
 end
