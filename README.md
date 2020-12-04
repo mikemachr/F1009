@@ -8,6 +8,8 @@ canción. Cuando el sampling termina se muestra: Fin del sampling. Tras un breve
 
 El programa grabador.m se usó para tomar las muestras de las canciones, no es necesario para la ejecución del programa.
 
+La funcion scanner.m se uso para reducir el tamaño que tomaban los espacios de trabajo.
+
 El programa importfile.m es usado para acceder a los csv que utiliza el archivo main.m. No es necesario ejecutarlo por separado.
 
 Los archivos .mat corresponden a los archivos de la base de datos de canciones.
